@@ -1,0 +1,16 @@
+require = ["hatchling", "math", "random"]
+build-backend = "hatchling.build"
+
+name = "QElephant"
+version = "0.0.1"
+authors = [
+    { name = "Didictateur"}
+]
+description = ""
+readme = "README.me"
+requires-python = ">= 3.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
