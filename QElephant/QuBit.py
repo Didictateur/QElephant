@@ -1,7 +1,7 @@
 import math
 import random as rd
 
-from Matrix import *
+from QElephant.Matrix import *
 
 I = complex(0, 1)
 
@@ -118,61 +118,61 @@ class IQuBit:
 
 def H(q: (QuBit | IQuBit)) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.H())
+        q._QuBit__apply(Matrix.H())
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.H())
 
 def X(q: (QuBit | IQuBit)) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.X())
+        q._QuBit__apply(Matrix.X())
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.X())
 
 def Y(q: (QuBit | IQuBit)) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.Y())
+        q._QuBit__apply(Matrix.Y())
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Y())
 
 def Z(q: (QuBit | IQuBit)) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.Z())
+        q._QuBit__apply(Matrix.Z())
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Z())
 
 def S(q: (QuBit | IQuBit)) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.S())
+        q._QuBit__apply(Matrix.S())
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.S())
 
 def T(q: (QuBit | IQuBit)) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.T())
+        q._QuBit__apply(Matrix.T())
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.T())
 
 def Rx(q: (QuBit | IQuBit), phi: float) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.Rx(phi))
+        q._QuBit__apply(Matrix.Rx(phi))
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Rx(phi))
 
 def Ry(q: (QuBit | IQuBit), phi: float) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.Ry(phi))
+        q._QuBit__apply(Matrix.Ry(phi))
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Ry(phi))
 
 def Rz(q: (QuBit | IQuBit), phi: float) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.Rz(phi))
+        q._QuBit__apply(Matrix.Rz(phi))
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Rz(phi))
 
 def R1(q: (QuBit | IQuBit), phi: float) -> None:
     if type(q) == QuBit:
-        q._Qubit__apply(Matrix.R1(phi))
+        q._QuBit__apply(Matrix.R1(phi))
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.R1(phi))
 
