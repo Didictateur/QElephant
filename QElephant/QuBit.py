@@ -27,8 +27,8 @@ class QuBit:
 
 class MuBit:
     def __init__(self, n: int) -> None:
-        self.__n = n
-        self.__state: list[complex] = [0]*(2**self.__n)
+        self.n = n
+        self.__state: list[complex] = [0]*(2**self.n)
         self.__state[0] = 1
     
     def __str__(self) -> str:
@@ -41,8 +41,8 @@ class MuBit:
                 return (next(N[:-1]))+"0"
         
         txt = ""
-        N = "0"*self.__n
-        for i in range(2**self.__n):
+        N = "0"*self.n
+        for i in range(2**self.n):
             txt += f"{round(self.__state[i], 3)} |{N}>\n"
             N = next(N)
         return txt
@@ -52,7 +52,7 @@ class MuBit:
         assert(value in {0, 1})
 
         M = Matrix([[1]])
-        for j in range(self.__n):
+        for j in range(self.n):
             if j == i:
                 M *= Matrix([[1-value, 0], [0, value]])
             else:
@@ -62,7 +62,7 @@ class MuBit:
         self.__state = [x/norm for x in self.__state]
     
     def __iter__(self):
-        return iter([IQuBit(i, self) for i in range(self.__n)])
+        return iter([IQuBit(i, self) for i in range(self.n)])
     
     def __getitem__(self, item: int) -> "IQuBit":
         return IQuBit(item, self)
@@ -70,7 +70,7 @@ class MuBit:
     def __apply(self, i: int, matrix: Matrix) -> None:
         M = Matrix([[1]])
 
-        for j in range(self.__n):
+        for j in range(self.n):
             if j == i:
                 M *= matrix
             else:
@@ -78,14 +78,23 @@ class MuBit:
         
         self.__state = M._Matrix__apply(self.__state)
     
-    def __mapply(self, matrix: Matrix) -> None:
-        self.__state = matrix.__MuBit__apply(self.__state)
+    def __mapply(self, matrix: Matrix, i: int) -> None:
+        M = Matrix([[1]])
+        j = 0
+        while j < self.n:
+            if j == i:
+                M *= matrix
+                j += 2
+            else:
+                M *= Matrix.I()
+                j += 1
+        self.__state = M._Matrix__apply(self.__state)
     
     def __getProb(self, i: int) -> float:
         """Probs for i to be zero"""
         M = Matrix([[1]])
 
-        for j in range(self.__n):
+        for j in range(self.n):
             if j == i:
                 M *= Matrix([[1, 0], [0, 0]])
             else:
@@ -96,24 +105,24 @@ class MuBit:
 
     def observe(self) -> list[0]:
         l = []
-        for i in range(self.__n):
+        for i in range(self.n):
             l.append(IQuBit(i, self).observe())
         return l
 
 class IQuBit:
     def __init__(self, n: int, mb: MuBit) -> None:
-        self.__n = n
+        self.n = n
         self.__muBit = mb
     
     def __apply(self, matrix: Matrix) -> None:
-        self.__muBit._MuBit__apply(self.__n, matrix)
+        self.__muBit._MuBit__apply(self.n, matrix)
     
     def observe(self) -> int:
         r = rd.random()
-        if r < self.__muBit._MuBit__getProb(self.__n):
-            self.__muBit._MuBit__set(self.__n, 0)
+        if r < self.__muBit._MuBit__getProb(self.n):
+            self.__muBit._MuBit__set(self.n, 0)
             return 0
-        self.__muBit._MuBit__set(self.__n, 1)
+        self.__muBit._MuBit__set(self.n, 1)
         return 1
 
 def H(q: (QuBit | IQuBit)) -> None:
@@ -179,8 +188,13 @@ def R1(q: (QuBit | IQuBit), phi: float) -> None:
 def CNOT(q: MuBit) -> None:
     q._MuBit__mapply(Matrix.CNOT())
 
-def SWAP(q: MuBit) -> None:
-    q._MuBit__mapply(Matrix.SWAP())
+def SWAP(q: MuBit, n1: int, n2: int) -> None:
+    nmin = min(n1, n2)
+    nmax = max(n1, n2)
+    for i in range(nmin, nmax):
+        q._MuBit__mapply(Matrix.SWAP(), i)
+    for i in range(nmax-2, nmin-1, -1):
+        q._MuBit__mapply(Matrix.SWAP(), i)
 
 def Cu(q: MuBit, u: list[list[complex]]) -> None:
     q._MuBit__mapply(Matrix.Cu(u))
@@ -194,7 +208,11 @@ def test(q: QuBit) -> None:
     print(varName)
 
 if __name__=="__main__":
-    q1 = QuBit()
-    q2 = QuBit()
+    q = MuBit(3)
+    H(q[0])
+    print(q)
 
-    test(q1)
+    SWAP(q, 0, 1)
+    SWAP(q, 1, 2)
+
+    print(q)
