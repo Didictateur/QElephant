@@ -185,8 +185,12 @@ def R1(q: (QuBit | IQuBit), phi: float) -> None:
     elif type(q) == IQuBit:
         q._IQuBit__apply(Matrix.R1(phi))
 
-def CNOT(q: MuBit) -> None:
-    q._MuBit__mapply(Matrix.CNOT())
+def CNOT(q: MuBit, n1: int, n2: int) -> None:
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
+    q._MuBit__mapply(Matrix.CNOT(), 0)
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
 
 def SWAP(q: MuBit, n1: int, n2: int) -> None:
     nmin = min(n1, n2)
@@ -196,8 +200,12 @@ def SWAP(q: MuBit, n1: int, n2: int) -> None:
     for i in range(nmax-2, nmin-1, -1):
         q._MuBit__mapply(Matrix.SWAP(), i)
 
-def Cu(q: MuBit, u: list[list[complex]]) -> None:
-    q._MuBit__mapply(Matrix.Cu(u))
+def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
+    q._MuBit__mapply(Matrix.Cu(u), 0)
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
 
 def test(q: QuBit) -> None:
     varName = None
@@ -210,9 +218,9 @@ def test(q: QuBit) -> None:
 if __name__=="__main__":
     q = MuBit(3)
     H(q[0])
+    # H(q[1])
     print(q)
 
-    SWAP(q, 0, 1)
-    SWAP(q, 1, 2)
+    CNOT(q, 0, 1)
 
     print(q)
