@@ -79,7 +79,7 @@ class MuBit:
         """Probs for i to be zero"""
         M = Matrix([[1]])
 
-        for j in range(self.n):
+        for j in range(self.__n):
             if j == i:
                 M *= Matrix([[1, 0], [0, 0]])
             else:
@@ -90,7 +90,7 @@ class MuBit:
 
     def observe(self) -> list[0]:
         l = []
-        for i in range(self.n):
+        for i in range(self.__n):
             l.append(IQuBit(i, self).observe())
         return l
     
