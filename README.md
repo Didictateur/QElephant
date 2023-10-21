@@ -49,14 +49,17 @@ $\alpha$ |0> + $\beta$ |1>
 
 is represented by 
 
-$\begin{pmatrix}
+```math
+\begin{pmatrix}
 \alpha\\
 \beta
-\end{pmatrix}$
+\end{pmatrix}
+```
 
 So, the operation corresponding of the inversion of the value of $\alpha$ and $\beta$ is
 
-$\begin{pmatrix}
+```math
+\begin{pmatrix}
 0 & 1\\
 1 & 0
 \end{pmatrix}
@@ -68,7 +71,8 @@ $\begin{pmatrix}
 =\begin{pmatrix}
 \beta\\
 \alpha
-\end{pmatrix}$
+\end{pmatrix}
+```
 
 In theory, the users don't need to use them, the main quantum gates are already implemented.
 
