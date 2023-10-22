@@ -52,7 +52,106 @@ Matrix(l: list[list[complexe]])
 
 ```math
 \begin{pmatrix}
-\frac1\sqrt 2 & \frac1\sqrt 2\\
-\frax1\sqrt 2 & -\frac1\sqrt 2
+\frac {1} {\sqrt 2} & \frac {1} {\sqrt 2}\\
+\frac {1} {\sqrt 2} & -\frac{1} {\sqrt 2}
+\end{pmatrix}
+```
+
+- ```X() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+0 & 1\\
+1 & 0
+\end{pmatrix}
+```
+
+- ```Y() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+0 & -i\\
+i & 0
+\end{pmatrix}
+```
+
+- ```Z() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & 0\\
+0 & -1
+\end{pmatrix}
+```
+
+- ```S() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & 0\\
+0 & i
+\end{pmatrix}
+```
+
+- ```T() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & 0\\
+0 & e^{i\frac {\pi} {4}}
+\end{pmatrix}
+```
+
+- ```Rx(phi: float) -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+\cos(\frac \phi 2) & -i\sin(\frac \phi 2)\\
+-i\sin(\frac \phi 2) & \cos(\frac \phi 2)
+\end{pmatrix}
+```
+
+- ```Ry(phi: float) -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+\cos(\frac \phi 2) & -\sin(\frac \phi 2)\\
+\sin(\frac \phi 2) & \cos(\frac \phi 2)
+\end{pmatrix}
+```
+
+- ```Rz(phi: float) -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+e^{-i\frac \phi 2} & 0\\
+0 & e^{i\frac \phi 2}
+\end{pmatrix}
+```
+
+- ```R1(phi: float) -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & p\\
+0 & e^{i\phi}
 \end{pmatrix}
 ```
