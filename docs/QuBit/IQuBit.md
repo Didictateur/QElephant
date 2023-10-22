@@ -2,22 +2,28 @@
 
 IQuBit(n: int, mb: MuBit)
 
+IQuBit(QuBit)
+
 - n: the position of the QuBit in the list of intricated QuBits
 - mb: the MuBit which organises the intricated QuBit 
 
 ### Attributes
 
-- ```__state: list[complexe]```
+- ```__n: int```
 
-  list of the values for the state |0> and |1>
+  the position of the QuBit in the list of intricated QuBits
+
+- ```__Mubit: MuBit```
+ the MuBit which organises the intricated QuBit
 
 - ```__intricated: bool```
 
-  tells if the qubit is intricated or not
+  tells if the QuBit is intricated or not
+  
 
 ### Methode
 
-- ```__init__(alpha: complexe=1, beta: complexe=0) -> None```
+- ```__init__(n: int, mb: MuBit) -> None```
 
   initiates the qubit
 
@@ -25,9 +31,9 @@ IQuBit(n: int, mb: MuBit)
 
   returns the value of __intricated
 
-- ```get_MuBit() -> None```
+- ```get_MuBit() -> MuBit```
 
-  returns the MuBit in wich the QuBit is intricated. If not intricated, rerurns None
+  returns the MuBit in wich the QuBit is intricated.
 
 - ```__str__() -> str```
 
