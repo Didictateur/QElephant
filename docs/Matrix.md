@@ -14,7 +14,7 @@ Matrix(l: list[list[complexe]])
 
   the size of the matrix
 
-### Methodes
+### Methode
 
 - ```__init__(self, l: list[list[complex]]=[]) -> None```
 
@@ -27,3 +27,10 @@ Matrix(l: list[list[complexe]])
 - ```__apply(self, x: list[complex]) -> list[complex]```
 
   takes a list to represent a vector in a colonne, and return the proctuct of the matrix by this vector
+
+- ```__str__(self) -> str```
+
+  returns a string representation of the matrix
+
+
+### Staticmethods
