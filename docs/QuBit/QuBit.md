@@ -7,13 +7,13 @@ QuBit(alpha: complexe, beta: complexe)
 
 ### Attributes
 
-- ```__m: list[list[complexe]]```
+- ```__state: list[complexe]```
 
-  the values contained in the matrix.
+  list of the values for the state |0> and |1>
 
-- ```__size: tuple[int, int]```
+- ```__intricated: bool```
 
-  the size of the matrix
+  tells if the qubit is intricated or not
 
 ### Methode
 
