@@ -155,3 +155,29 @@ e^{-i\frac \phi 2} & 0\\
 0 & e^{i\phi}
 \end{pmatrix}
 ```
+
+- ```CNOT() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+\end{pmatrix}
+```
+
+- ```SWAP() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 0\\
+\end{pmatrix}
+```
