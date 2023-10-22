@@ -1,9 +1,9 @@
-## QuBit
+## IQuBit
 
-QuBit(alpha: complexe, beta: complexe)
+IQuBit(n: int, mb: MuBit)
 
-- alpha: complexe value for |0>
-- beta: complexe value for |1>
+- n: the position of the QuBit in the list of intricated QuBits
+- mb: the MuBit which organises the intricated QuBit 
 
 ### Attributes
 
