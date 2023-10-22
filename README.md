@@ -108,3 +108,9 @@ SWAP(mq, 0, 1)
 ## Docs
 
 A doc is availaibale [here](docs) where all objects and gates are displayed.
+
+
+## Others
+
+> [!WARNING]
+> Because this library is only a simulation of a qantum computer, lot of calculus are made. Manipulating n intricated qubits means manipulating matrices of size 2^n. So, it demandes much more time to calvulate than a real qantum computer.
