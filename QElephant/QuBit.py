@@ -8,7 +8,7 @@ I = complex(0, 1)
 ## Classes
 
 class MuBit:
-    def __init__(self, n: int) -> None:
+    def __init__(self, n: int=2) -> None:
         self.__n = n
         self.__state: list[complex] = [0]*(2**self.__n)
         self.__state[0] = 1
@@ -88,7 +88,7 @@ class MuBit:
         l = M._Matrix__apply(self.__state)
         return sum([abs(x)**2 for x in l])
 
-    def observe(self) -> list[0]:
+    def observe(self) -> list[int]:
         l = []
         for i in range(self.__n):
             l.append(IQuBit(i, self).observe())
