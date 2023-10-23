@@ -78,15 +78,13 @@ class MuBit:
             raise TypeError(f"can only manipulate MuBit with Matrix, not {type(matrix)}")
         i = i%self.__n
 
-        M = Matrix([[1]])
+        H_ = np.kron(matrix._Matrix__m, np.identity(2**(self.__n-i-1)))
+        nstate = []
 
-        for j in range(self.__n):
-            if j == i:
-                M *= matrix
-            else:
-                M *= Matrix.I()
+        for k in range(2**(i)):
+            nstate += np.dot(H_, self.__state[k*2**(self.__n-i):(k+1)*2**(self.__n-i)]).tolist()
         
-        self.__state = M._Matrix__apply(self.__state)
+        self.__state = nstate
     
     def __mapply(self, matrix: Matrix, i: int) -> None:
         if type(i) is not int:
@@ -116,15 +114,11 @@ class MuBit:
             raise IndexError("MuBit index out of range")
         i = i%self.__n
 
-        M = Matrix([[1]])
-
-        for j in range(self.__n):
-            if j == i:
-                M *= Matrix([[1, 0], [0, 0]])
-            else:
-                M *= Matrix.I()
-        
-        l = M._Matrix__apply(self.__state)
+        H_ = np.kron([[1, 0], [0, 0]], np.identity(2**(self.__n-i-1)))
+        l = []
+        for k in range(2**(i)):
+            l += np.dot(H_, self.__state[k*2**(self.__n-i):(k+1)*2**(self.__n-i)]).tolist()
+                
         return sum([abs(x)**2 for x in l])
 
     def observe(self) -> list[int]:
