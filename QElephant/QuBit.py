@@ -1,8 +1,7 @@
 import math
 import random as rd
 
-# from QElephant.Matrix import *
-from Matrix import *
+from QElephant.Matrix import *
 
 I = complex(0, 1)
 
