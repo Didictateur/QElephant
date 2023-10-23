@@ -326,7 +326,16 @@ def R1(q: QuBit, phi: float) -> None:
 def CNOT(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
         TypeError(f"a MuBit was expected, but a {type(q)} was given")
-    if type()
+    if type(n1) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+    if type(n2) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+    if n1 > q._MuBit__n or n2 > q._MuBit__n:
+        ValueError("Mubit index out of range")
+    n1 = n1%q._MuBit__n
+    n2 = n2%q._MuBit__n
+    if n1==n2:
+        ValueError("the CNOT gate must be applied on two differents QuBits")
 
     SWAP(q, 0, n1)
     SWAP(q, 1, n2)
@@ -335,6 +344,19 @@ def CNOT(q: MuBit, n1: int, n2: int) -> None:
     SWAP(q, 1, n2)
 
 def SWAP(q: MuBit, n1: int, n2: int) -> None:
+    if type(q) is not MuBit:
+        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+    if type(n1) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+    if type(n2) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+    if n1 > q._MuBit__n or n2 > q._MuBit__n:
+        ValueError("Mubit index out of range")
+    n1 = n1%q._MuBit__n
+    n2 = n2%q._MuBit__n
+    if n1==n2:
+        ValueError("the SWAP gate must be applied on two differents QuBits")
+
     nmin = min(n1, n2)
     nmax = max(n1, n2)
     for i in range(nmin, nmax):
@@ -343,19 +365,37 @@ def SWAP(q: MuBit, n1: int, n2: int) -> None:
         q._MuBit__mapply(Matrix.SWAP(), i)
 
 def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
+    if type(q) is not MuBit:
+        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+    if type(n1) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+    if type(n2) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+    if n1 > q._MuBit__n or n2 > q._MuBit__n:
+        ValueError("Mubit index out of range")
+    n1 = n1%q._MuBit__n
+    n2 = n2%q._MuBit__n
+    if n1==n2:
+        ValueError("the Cu gate must be applied on two differents QuBits")
+    if type(u) is not list:
+        raise ValueError(f"u was expected to be list[list[complex]], no {type(u)}")
+    for u_ in u:
+        if type(u_) is not list:
+            raise ValueError(f"u was expected to be list[list[complex]]. A {type(u_)} has been found")
+    for l in u:
+        for x in l:
+            if type(x) not in {int, float, complex}:
+                raise ValueError(f"u was expected to be list[list[complex]]. A {type(x)} has been found")
+    if len(u) != 2 or len(u[0]) != 2:
+        if len(u) == 0:
+            ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size (0, .) has been given")
+        ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size ({len(u)}, {u[0]}) has been given")
+
     SWAP(q, 0, n1)
     SWAP(q, 1, n2)
     q._MuBit__mapply(Matrix.Cu(u), 0)
     SWAP(q, 0, n1)
     SWAP(q, 1, n2)
-
-def test(q: QuBit) -> None:
-    varName = None
-
-    for name, value in locals().items():
-        if value == q:
-            varName = name
-    print(varName)
 
 if __name__=="__main__":
     q = MuBit(2)
