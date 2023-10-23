@@ -1,7 +1,8 @@
 import math
 import random as rd
 
-from QElephant.Matrix import *
+# from QElephant.Matrix import *
+from Matrix import *
 
 I = complex(0, 1)
 
@@ -378,7 +379,7 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     if n1==n2:
         ValueError("the Cu gate must be applied on two differents QuBits")
     if type(u) is not list:
-        raise ValueError(f"u was expected to be list[list[complex]], no {type(u)}")
+        raise ValueError(f"u was expected to be list[list[complex]], not {type(u)}")
     for u_ in u:
         if type(u_) is not list:
             raise ValueError(f"u was expected to be list[list[complex]]. A {type(u_)} has been found")
@@ -399,5 +400,7 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
 
 if __name__=="__main__":
     q = MuBit(2)
+    H(q[0])
+    Cu(q, [[0, 1], [1, 0]], 0, 1)
 
-    print(q[0])
+    print(q)
