@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 I = complex(0, 1)
 
@@ -42,7 +43,8 @@ class Matrix:
         for y in x:
             if type(y) not in {int, float, complex}:
                 TypeError(f"can apply a Matrix to a ")
-        assert(self.__size[1] == len(x))
+        if not self.__size[1] == len(x):
+            ValueError(f"the vector was expectedd to be of size {self.__size[1]}, but is of size {len(x)}")
 
         y: list[complex] = [0]*self.__size[0]
         for i in range(self.__size[0]):
