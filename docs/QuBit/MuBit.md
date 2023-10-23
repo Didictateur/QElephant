@@ -55,3 +55,9 @@ MuBit(n: int)
 - ```observe() -> list[int]```
 
   forces the QuBits in a state, where the probabilities are given throught __state. Returns the list of the state of each QuBit.
+
+### Staticmethods
+
+- ```intricateThem(*args: QuBit) -> MuBit```
+
+  returns a new QuBit, independent of the args, but corresponding to the intrication of all given QuBits 
