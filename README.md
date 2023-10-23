@@ -14,6 +14,7 @@ pip install QElephant
 In order to work, QElephant is using the following libraries:
 - `math`
 - `random`
+- `numpy`
 
 They are automatically managed when installing QElephant.
 

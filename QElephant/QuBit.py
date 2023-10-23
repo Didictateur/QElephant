@@ -108,16 +108,14 @@ class MuBit:
             raise TypeError(f"can only manipulate MuBit with Matrix, not {type(matrix)}")
         i = i%self.__n
 
-        M = Matrix([[1]])
+        m = matrix._Matrix__m
+        a, b, c, d = m[2][2], m[2][3], m[3][2], m[3][3]
         j = 0
-        while j < self.__n:
-            if j == i:
-                M *= matrix
-                j += 2
-            else:
-                M *= Matrix.I()
-                j += 1
-        self.__state = M._Matrix__apply(self.__state)
+        while j < 2**self.__n:
+            x3, x4 = self.__state[j+2], self.__state[j+3]
+            self.__state[j+2] = a*x3+b*x4
+            self.__state[j+3] = c*x3+d*x4
+            j += 4
     
     def __getProb(self, i: int) -> float:
         """Probs for i to be zero"""
@@ -171,7 +169,7 @@ class MuBit:
 
         l = []
         for i in range(self.__n):
-            l.append(state%2)
+            l.insert(0, state%2)
             state -= state%2
             state //= 2
         return l
@@ -403,9 +401,9 @@ def SWAP(q: MuBit, n1: int, n2: int) -> None:
     nmin = min(n1, n2)
     nmax = max(n1, n2)
     for i in range(nmin, nmax):
-        q._MuBit__mapply(Matrix.SWAP(), i)
+        q._MuBit__SWITCH(i)
     for i in range(nmax-2, nmin-1, -1):
-        q._MuBit__mapply(Matrix.SWAP(), i)
+        q._MuBit__SWITCH(i)
 
 def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     if type(q) is not MuBit:
