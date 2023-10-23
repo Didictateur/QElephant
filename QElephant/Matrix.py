@@ -23,17 +23,8 @@ class Matrix:
     def __mul__(self, __value: "Matrix") -> "Matrix":
         if type(__value) is not Matrix:
             raise ValueError(f"cannot multiply Matrix with {type(__value)}")
-
-        l: list[list[complex]] = []
-        for i in range(self.__size[0]*__value.__size[0]):
-            l.append([0]*(self.__size[1]*__value.__size[1]))
         
-        for i in range(self.__size[0]):
-            for j in range(self.__size[1]):
-                for x in range(__value.__size[0]):
-                    for y in range(__value.__size[1]):
-                        pos = (i*__value.__size[0]+x, j*__value.__size[1]+y)
-                        l[pos[0]][pos[1]] = self.__m[i][j]*__value.__m[x][y]
+        l = np.kron(self.__m, __value._Matrix__m).tolist()
         
         return Matrix(l)
     
@@ -46,10 +37,7 @@ class Matrix:
         if not self.__size[1] == len(x):
             ValueError(f"the vector was expectedd to be of size {self.__size[1]}, but is of size {len(x)}")
 
-        y: list[complex] = [0]*self.__size[0]
-        for i in range(self.__size[0]):
-            for j in range(self.__size[1]):
-                y[i] += self.__m[i][j]*x[j]
+        y: list[complex] = np.dot(self.__m, x).tolist()
         return y
     
     def __str__(self) -> str:
