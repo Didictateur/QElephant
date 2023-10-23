@@ -46,14 +46,20 @@ class MuBit:
         if not value in {0, 1}:
             raise ValueError(f"QuBit state must be 0 or 1, not {value}")
 
-        i = i%self.__n
-        M = Matrix([[1]])
-        for j in range(self.__n):
-            if j == i:
-                M *= Matrix([[1-value, 0], [0, value]])
-            else:
-                M *= Matrix([[1, 0], [0, 1]])
-        self.__state = M._Matrix__apply(self.__state)
+        l = []
+        a, d = 1-value, value
+        for k in range(i, self.__n-1):
+            self.__SWITCH(k)
+        j = 0
+        while j < 2**self.__n:
+            x1, x2 = self.__state[j], self.__state[j+1]
+            l.append(a*x1)
+            l.append(d*x2)
+            j += 2
+        self.__state = l
+        for k in range(self.__n-2, i-1, -1):
+            self.__SWITCH(k)
+
         norm = math.sqrt(sum([abs(x)**2 for x in self.__state]))
         self.__state = [x/norm for x in self.__state]
     
@@ -121,12 +127,14 @@ class MuBit:
             raise IndexError("MuBit index out of range")
         i = i%self.__n
 
-        H_ = np.kron([[1, 0], [0, 0]], np.identity(2**(self.__n-i-1)))
-        l = []
-        for k in range(2**(i)):
-            l += np.dot(H_, self.__state[k*2**(self.__n-i):(k+1)*2**(self.__n-i)]).tolist()
-                
-        return sum([abs(x)**2 for x in l])
+        prob = 0
+        pas = 2**(self.__n-i-1)
+        j = 0
+        while j < 2**self.__n:
+            prob += sum([abs(x)**2 for x in self.__state[j:j+pas]])
+            j += 2*pas
+        
+        return prob
     
     def __SWITCH(self, i: int) -> float:
         if type(i) is not int:
@@ -148,9 +156,24 @@ class MuBit:
             K += lng
 
     def observe(self) -> list[int]:
+        r = rd.random()
+        s = 0
+        state = 0
+        for prob in self.__state:
+            s += abs(prob)**2
+            if r < s:
+                break
+            state += 1
+        if state == 2**self.__n:
+            state -= 1
+        self.state = [0]*(2**self.__n)
+        self.state[state] = 1
+
         l = []
         for i in range(self.__n):
-            l.append(IQuBit(i, self).observe())
+            l.append(state%2)
+            state -= state%2
+            state //= 2
         return l
     
     @staticmethod
