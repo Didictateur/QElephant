@@ -78,18 +78,25 @@ class MuBit:
             raise TypeError(f"can only manipulate MuBit with Matrix, not {type(matrix)}")
         i = i%self.__n
 
-        H_ = np.kron(matrix._Matrix__m, np.identity(2**(self.__n-i-1)))
-        nstate = []
-
-        for k in range(2**(i)):
-            nstate += np.dot(H_, self.__state[k*2**(self.__n-i):(k+1)*2**(self.__n-i)]).tolist()
-        
-        self.__state = nstate
+        l = []
+        m = matrix._Matrix__m
+        a, b, c, d = m[0][0], m[0][1], m[1][0], m[1][1]
+        for k in range(i, self.__n-1):
+            self.__SWITCH(k)
+        j = 0
+        while j < 2**self.__n:
+            x1, x2 = self.__state[j], self.__state[j+1]
+            l.append(a*x1+b*x2)
+            l.append(c*x1+d*x2)
+            j += 2
+        self.__state = l
+        for k in range(self.__n-2, i-1, -1):
+            self.__SWITCH(k)
     
     def __mapply(self, matrix: Matrix, i: int) -> None:
         if type(i) is not int:
             raise TypeError(f"MuBit indices must be integers, not {type(i)}")
-        if i > self.__n:
+        if i >= self.__n:
             raise IndexError("MuBit index out of range")
         if type(matrix) is not Matrix:
             raise TypeError(f"can only manipulate MuBit with Matrix, not {type(matrix)}")
@@ -120,6 +127,25 @@ class MuBit:
             l += np.dot(H_, self.__state[k*2**(self.__n-i):(k+1)*2**(self.__n-i)]).tolist()
                 
         return sum([abs(x)**2 for x in l])
+    
+    def __SWITCH(self, i: int) -> float:
+        if type(i) is not int:
+            raise TypeError(f"MuBit indices must be integers, not {type(i)}")
+        if i >= self.__n:
+            raise IndexError("MuBit index out of range")
+        i = i%self.__n
+
+        lng = 2**(self.__n-i)
+        a = lng//4
+        b = lng//2
+        c = 3*lng//4
+        K = 0
+        for k in range(2**(i)):
+            A = K+a
+            B = K+b
+            C = K+c
+            self.__state[A:B], self.__state[B:C] = self.__state[B:C], self.__state[A:B]
+            K += lng
 
     def observe(self) -> list[int]:
         l = []
