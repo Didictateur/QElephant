@@ -134,7 +134,7 @@ class MuBit:
         
         return prob
     
-    def __SWITCH(self, i: int) -> float:
+    def __SWITCH(self, i: int) -> None:
         if type(i) is not int:
             raise TypeError(f"MuBit indices must be integers, not {type(i)}")
         if i >= self.__n:

@@ -52,6 +52,10 @@ MuBit(n: int)
 
   returns the probability to get the i-th QuBit in the state |0>.
 
+- ```__SWITCH(i: int) -> None```
+
+  switches the i-th QuBit with the next one in __state.
+
 - ```observe() -> list[int]```
 
   forces the QuBits in a state, where the probabilities are given throught __state. Returns the list of the state of each QuBit.
