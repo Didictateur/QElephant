@@ -60,6 +60,10 @@ MuBit(n: int)
 
   forces the QuBits in a state, where the probabilities are given throught __state. Returns the list of the state of each QuBit.
 
+- ```reset() -> None```
+
+  fixes the QuBit in the state |0...0>. This is irrevesible.
+
 ### Staticmethods
 
 - ```intricateThem(*args: QuBit) -> MuBit```

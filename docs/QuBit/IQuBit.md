@@ -46,3 +46,7 @@ IQuBit(QuBit)
 - ```observe() -> list[int]```
 
   forces the QuBit in a state, where the probabilities are given throught __state. Returns the new __state obtained.
+
+- ```reset() -> None```
+
+  fixes the QuBit in the state |0>. This is irrevesible.

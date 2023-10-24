@@ -174,6 +174,10 @@ class MuBit:
             state //= 2
         return l
     
+    def reset(self) -> None:
+        self.state = [0]*self.__n
+        self.state[0] = 1
+    
     @staticmethod
     def intricateThem(*args: "QuBit") -> "MuBit":
         for q in args:
@@ -226,6 +230,9 @@ class QuBit:
             return 0
         self.__state = [0, 1]
         return 1
+    
+    def reset(self) -> None:
+        self.__state = [1, 0]
 
 class IQuBit(QuBit):
     def __init__(self, n: int, mb: MuBit) -> None:
@@ -265,6 +272,9 @@ class IQuBit(QuBit):
             return 0
         self.__muBit._MuBit__set(self.__n, 1)
         return 1
+    
+    def reset(self) -> None:
+        self.__muBit._MuBit__set(self.__n, 0)
 
 
 
