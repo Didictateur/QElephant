@@ -40,13 +40,13 @@ MuBit(n: int)
 
   creates an intricated QuBit corresponding to the item-th QuBit.
 
-- ```__apply(m: Matrix) -> None```
+- ```__apply(matrix: Matrix, i: int) -> None```
 
-  takes a Matrix and modifies the QuBits according the matrix.
+  takes a Matrix of size (2, 2) and modifies the i-th QuBits according the matrix.
 
-- ```__mapply(m: Matrix, i: int) -> None```
+- ```__mapply(matrix: Matrix, i: int) -> None```
 
-  takes a Matrix and modifies the i-th QuBit according the matrix.
+  takes a Matrix aof size (4, 4) and modifies the i-th QuBit and le next one together according the matrix.
 
 - ```__getProbs(i: int) -> float```
 

@@ -71,11 +71,11 @@ class MuBit:
             raise TypeError(f"MuBit indices must be integers, not {type(item)}")
         if item > self.__n:
             raise IndexError("MuBit index out of range")
-
         item = item%self.__n
+
         return IQuBit(item, self)
 
-    def __apply(self, i: int, matrix: Matrix) -> None:
+    def __apply(self, matrix: Matrix, i: int) -> None:
         if type(i) is not int:
             raise TypeError(f"MuBit indices must be integers, not {type(i)}")
         if i > self.__n:
