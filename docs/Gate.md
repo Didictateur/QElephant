@@ -28,6 +28,19 @@ Here is the list of all the main gates in quantum algorithm available in the lib
 \end{pmatrix}
 ```
 
+## SQRTX(q: QuBit) -> None
+`Square-Root of X`. Inplementes the square root of the X-gate.
+
+- q: the qubit manipulated by the gate. This function is in-place.
+
+- matrix:
+```math
+\begin{pmatrix}
+\frac {1+i} {2} & \frac {1-i} {2}\\
+\frac {1-i} {2} & \frac {1+i} {2}
+\end{pmatrix}
+```
+
 ## Y(q: QuBit) -> None
 `Pauli-Y gate`. Inplementes a rotation aroud the y-axis of $\pi$ radians.
 
@@ -119,7 +132,7 @@ e^{-i\frac\phi2} & 0\\
 \end{pmatrix}
 ```
 
-## CNOT(q: MuBit, n1: int, n2: int) -> None
+## CX(q: MuBit, n1: int, n2: int) -> None
 `X-controlled gate`. Invert the state |0> and |1> of the QuiBit in n2 if the state of the QuBit in n1 is 1.
 
 - q: the qubit manipulated by the gate. This function is in-place.
@@ -133,6 +146,40 @@ e^{-i\frac\phi2} & 0\\
 0 & 1 & 0 & 0\\
 0 & 0 & 0 & 1\\
 0 & 0 & 1 & 0
+\end{pmatrix}
+```
+
+## CY(q: MuBit, n1: int, n2: int) -> None
+`X-controlled gate`. Invert the state |0> and |1> of the QuiBit in n2 if the state of the QuBit in n1 is 1.
+
+- q: the qubit manipulated by the gate. This function is in-place.
+- n1: the first QuBit to manipualte.
+- n2: the second QuBit to manipulate
+
+- matrix:
+```math
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & -i\\
+0 & 0 & i & 0
+\end{pmatrix}
+```
+
+## CZ(q: MuBit, n1: int, n2: int) -> None
+`X-controlled gate`. Invert the state |0> and |1> of the QuiBit in n2 if the state of the QuBit in n1 is 1.
+
+- q: the qubit manipulated by the gate. This function is in-place.
+- n1: the first QuBit to manipualte.
+- n2: the second QuBit to manipulate
+
+- matrix:
+```math
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1
 \end{pmatrix}
 ```
 

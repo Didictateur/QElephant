@@ -68,6 +68,17 @@ Matrix(l: list[list[complexe]])
 \end{pmatrix}
 ```
 
+- ```SQRTX() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+\frac {1+i} {2} & \frac {1-i} {2}\\
+\frac {1-i} {2} & \frac {1+i} {2}
+\end{pmatrix}
+```
+
 - ```Y() -> Matrix```
 
   returns the matrix
@@ -156,7 +167,7 @@ e^{-i\frac \phi 2} & 0\\
 \end{pmatrix}
 ```
 
-- ```CNOT() -> Matrix```
+- ```CX() -> Matrix```
 
   returns the matrix
 
@@ -166,6 +177,32 @@ e^{-i\frac \phi 2} & 0\\
 0 & 1 & 0 & 0\\
 0 & 0 & 0 & 1\\
 0 & 0 & 1 & 0
+\end{pmatrix}
+```
+
+- ```CY() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & -i\\
+0 & 0 & i & 0
+\end{pmatrix}
+```
+
+- ```CZ() -> Matrix```
+
+  returns the matrix
+
+```math
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1
 \end{pmatrix}
 ```
 

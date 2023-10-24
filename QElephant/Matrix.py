@@ -64,6 +64,13 @@ class Matrix:
             [0, 1],
             [1, 0]
         ])
+    
+    @staticmethod
+    def SQRTX() -> "Matrix":
+        return Matrix([
+            [(1+I)/2, (1-I)/2],
+            [(1-I)/2, (1+I)/2]
+        ])
 
     @staticmethod
     def Y() -> "Matrix":
@@ -141,12 +148,30 @@ class Matrix:
         ])
 
     @staticmethod
-    def CNOT() -> "Matrix":
+    def CX() -> "Matrix":
         return Matrix([
             [1, 0, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 1],
             [0, 0, 1, 0]
+        ])
+    
+    @staticmethod
+    def CY() -> "Matrix":
+        return Matrix([
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 0, -I],
+            [0, 0, I, 0]
+        ])
+    
+    @staticmethod
+    def CZ() -> "Matrix":
+        return Matrix([
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, -1]
         ])
     
     @staticmethod

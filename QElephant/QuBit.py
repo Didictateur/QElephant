@@ -256,7 +256,7 @@ class IQuBit(QuBit):
         if type(matrix) is not Matrix:
             raise TypeError(f"can only manipulate QuBit with Matrix, not {type(matrix)}")
 
-        self.__muBit._MuBit__apply(self.__n, matrix)
+        self.__muBit._MuBit__apply(matrix, self.__n)
     
     def observe(self) -> int:
         r = rd.random()
@@ -285,6 +285,14 @@ def X(q: QuBit) -> None:
         q._IQuBit__apply(Matrix.X())
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.X())
+    else:
+        raise TypeError(f"a QuBit was expected, but a {type(q)} was given")
+
+def SQRTX(q: QuBit) -> None:
+    if type(q) == IQuBit:
+        q._IQuBit__apply(Matrix.SQRTX())
+    elif type(q) == QuBit:
+        q._QuBit__apply(Matrix.SQRTX())
     else:
         raise TypeError(f"a QuBit was expected, but a {type(q)} was given")
 
@@ -364,7 +372,7 @@ def R1(q: QuBit, phi: float) -> None:
     else:
         raise TypeError(f"a QuBit was expected, but a {type(q)} was given")
 
-def CNOT(q: MuBit, n1: int, n2: int) -> None:
+def CX(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
         TypeError(f"a MuBit was expected, but a {type(q)} was given")
     if type(n1) is not int:
@@ -380,7 +388,47 @@ def CNOT(q: MuBit, n1: int, n2: int) -> None:
 
     SWAP(q, 0, n1)
     SWAP(q, 1, n2)
-    q._MuBit__mapply(Matrix.CNOT(), 0)
+    q._MuBit__mapply(Matrix.CX(), 0)
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
+
+def CY(q: MuBit, n1: int, n2: int) -> None:
+    if type(q) is not MuBit:
+        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+    if type(n1) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+    if type(n2) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+    if n1 > q._MuBit__n or n2 > q._MuBit__n:
+        ValueError("Mubit index out of range")
+    n1 = n1%q._MuBit__n
+    n2 = n2%q._MuBit__n
+    if n1==n2:
+        ValueError("the CNOT gate must be applied on two differents QuBits")
+
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
+    q._MuBit__mapply(Matrix.CY(), 0)
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
+
+def CZ(q: MuBit, n1: int, n2: int) -> None:
+    if type(q) is not MuBit:
+        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+    if type(n1) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+    if type(n2) is not int:
+        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+    if n1 > q._MuBit__n or n2 > q._MuBit__n:
+        ValueError("Mubit index out of range")
+    n1 = n1%q._MuBit__n
+    n2 = n2%q._MuBit__n
+    if n1==n2:
+        ValueError("the CNOT gate must be applied on two differents QuBits")
+
+    SWAP(q, 0, n1)
+    SWAP(q, 1, n2)
+    q._MuBit__mapply(Matrix.CZ(), 0)
     SWAP(q, 0, n1)
     SWAP(q, 1, n2)
 
