@@ -35,6 +35,10 @@ Matrix(l: list[list[complexe]])
 
 ### Staticmethods
 
+- ```to_list(matrix: Matrix) -> list[list[complex]]```
+
+  returns the a list representing the given Matrix.
+
 - ```I() -> Matrix```
 
   returns the matrix
