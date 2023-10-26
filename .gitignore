@@ -4,3 +4,4 @@ test.py
 build/
 dist/
 QElephant.egg-info/
+.vscode/
