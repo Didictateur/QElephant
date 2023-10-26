@@ -396,11 +396,12 @@ def CX(q: MuBit, n1: int, n2: int) -> None:
     if n1==n2:
         ValueError("the CNOT gate must be applied on two differents QuBits")
 
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
-    q._MuBit__mapply(Matrix.CX(), 0)
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
+    n = q._MuBit__n
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
+    q._MuBit__mapply(Matrix.CX(), n-2)
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
 
 def CY(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -416,11 +417,12 @@ def CY(q: MuBit, n1: int, n2: int) -> None:
     if n1==n2:
         ValueError("the CNOT gate must be applied on two differents QuBits")
 
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
-    q._MuBit__mapply(Matrix.CY(), 0)
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
+    n = q._MuBit__n
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
+    q._MuBit__mapply(Matrix.CY(), n-2)
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
 
 def CZ(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -436,11 +438,12 @@ def CZ(q: MuBit, n1: int, n2: int) -> None:
     if n1==n2:
         ValueError("the CNOT gate must be applied on two differents QuBits")
 
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
-    q._MuBit__mapply(Matrix.CZ(), 0)
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
+    n = q._MuBit__n
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
+    q._MuBit__mapply(Matrix.CZ(), n-2)
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
 
 def SWAP(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -490,11 +493,12 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
             ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size (0, .) has been given")
         ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size ({len(u)}, {u[0]}) has been given")
 
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
-    q._MuBit__mapply(Matrix.Cu(u), 0)
-    SWAP(q, 0, n1)
-    SWAP(q, 1, n2)
+    n = q._MuBit__n
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
+    q._MuBit__mapply(Matrix.Cu(u), n-2)
+    SWAP(q, n-2, n1)
+    SWAP(q, n-1, n2)
 
 if __name__=="__main__":
     q = MuBit(2)
