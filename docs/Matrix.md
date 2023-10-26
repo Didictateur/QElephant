@@ -32,12 +32,12 @@ Matrix(l: list[list[complexe]])
 
   returns a string representation of the matrix
 
-
-### Staticmethods
-
-- ```to_list(matrix: Matrix) -> list[list[complex]]```
+- ```to_list() -> list[list[complex]]```
 
   returns the a list representing the given Matrix.
+
+
+### Staticmethods
 
 - ```I() -> Matrix```
 
