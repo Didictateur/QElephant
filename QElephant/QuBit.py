@@ -200,9 +200,9 @@ class MuBit:
 class QuBit:
     def __init__(self, alpha: complex=1, beta: complex=0):
         if type(alpha) not in {int, float, complex}:
-            TypeError(f"QuBit state must be int, float or complex, not {type(alpha)}")
+            raise TypeError(f"QuBit state must be int, float or complex, not {type(alpha)}")
         if type(beta) not in {int, float, complex}:
-            TypeError(f"QuBit state must be int, float or complex, not {type(alpha)}")
+            raise TypeError(f"QuBit state must be int, float or complex, not {type(alpha)}")
         if abs(alpha)**2 + abs(beta)**2 != 1:
             raise ValueError(f"the initial state must be normalized. Here, |alpha|**2+|beta|**2={abs(alpha)**2 + abs(beta)**2}")
         
@@ -242,7 +242,7 @@ class IQuBit(QuBit):
         if n > mb._MuBit__n:
             raise ValueError(f"MuBit index out of range")
         if type(mb) is not MuBit:
-            TypeError(f"an intricate QuBit should be associated with a MuBit, not a {type(mb)}")
+            raise TypeError(f"an intricate QuBit should be associated with a MuBit, not a {type(mb)}")
         n = n%mb._MuBit__n
 
         super().__init__()
@@ -341,7 +341,7 @@ def T(q: QuBit) -> None:
 
 def Rx(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
-        TypeError(f"an angle must be integer or float, not {type(phi)}")
+        raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
     if type(q) == QuBit:
         q._QuBit__apply(Matrix.Rx(phi))
@@ -352,7 +352,7 @@ def Rx(q: QuBit, phi: float) -> None:
 
 def Ry(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
-        TypeError(f"an angle must be integer or float, not {type(phi)}")
+        raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
     if type(q) == QuBit:
         q._QuBit__apply(Matrix.Ry(phi))
@@ -363,7 +363,7 @@ def Ry(q: QuBit, phi: float) -> None:
 
 def Rz(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
-        TypeError(f"an angle must be integer or float, not {type(phi)}")
+        raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
     if type(q) == QuBit:
         q._QuBit__apply(Matrix.Rz(phi))
@@ -374,7 +374,7 @@ def Rz(q: QuBit, phi: float) -> None:
 
 def R1(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
-        TypeError(f"an angle must be integer or float, not {type(phi)}")
+        raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
     if type(q) == QuBit:
         q._QuBit__apply(Matrix.R1(phi))
@@ -385,17 +385,17 @@ def R1(q: QuBit, phi: float) -> None:
 
 def CX(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
-        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+        raise TypeError(f"a MuBit was expected, but a {type(q)} was given")
     if type(n1) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n1)}")
     if type(n2) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
-    if n1 > q._MuBit__n or n2 > q._MuBit__n:
-        ValueError("Mubit index out of range")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+    if n1 >= q._MuBit__n or n2 >= q._MuBit__n:
+        raise ValueError("Mubit index out of range")
     n1 = n1%q._MuBit__n
     n2 = n2%q._MuBit__n
     if n1==n2:
-        ValueError("the CNOT gate must be applied on two differents QuBits")
+        raise ValueError("the CNOT gate must be applied on two differents QuBits")
 
     n = q._MuBit__n
     SWAP(q, n-2, n1)
@@ -406,17 +406,17 @@ def CX(q: MuBit, n1: int, n2: int) -> None:
 
 def CY(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
-        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+        raise TypeError(f"a MuBit was expected, but a {type(q)} was given")
     if type(n1) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n1)}")
     if type(n2) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n2)}")
     if n1 > q._MuBit__n or n2 > q._MuBit__n:
-        ValueError("Mubit index out of range")
+        raise ValueError("Mubit index out of range")
     n1 = n1%q._MuBit__n
     n2 = n2%q._MuBit__n
     if n1==n2:
-        ValueError("the CNOT gate must be applied on two differents QuBits")
+        raise ValueError("the CNOT gate must be applied on two differents QuBits")
 
     n = q._MuBit__n
     SWAP(q, n-2, n1)
@@ -427,17 +427,17 @@ def CY(q: MuBit, n1: int, n2: int) -> None:
 
 def CZ(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
-        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+        raise TypeError(f"a MuBit was expected, but a {type(q)} was given")
     if type(n1) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n1)}")
     if type(n2) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n2)}")
     if n1 > q._MuBit__n or n2 > q._MuBit__n:
-        ValueError("Mubit index out of range")
+        raise ValueError("Mubit index out of range")
     n1 = n1%q._MuBit__n
     n2 = n2%q._MuBit__n
     if n1==n2:
-        ValueError("the CNOT gate must be applied on two differents QuBits")
+        raise ValueError("the CNOT gate must be applied on two differents QuBits")
 
     n = q._MuBit__n
     SWAP(q, n-2, n1)
@@ -454,32 +454,31 @@ def SWAP(q: MuBit, n1: int, n2: int) -> None:
     if type(n2) is not int:
         TypeError(f"MuBit indices must be intergers, not {type(n2)}")
     if n1 > q._MuBit__n or n2 > q._MuBit__n:
-        ValueError("Mubit index out of range")
+        raise ValueError("Mubit index out of range")
     n1 = n1%q._MuBit__n
     n2 = n2%q._MuBit__n
-    if n1==n2:
-        ValueError("the SWAP gate must be applied on two differents QuBits")
 
-    nmin = min(n1, n2)
-    nmax = max(n1, n2)
-    for i in range(nmin, nmax):
-        q._MuBit__SWITCH(i)
-    for i in range(nmax-2, nmin-1, -1):
-        q._MuBit__SWITCH(i)
+    if n1 != n2:
+        nmin = min(n1, n2)
+        nmax = max(n1, n2)
+        for i in range(nmin, nmax):
+            q._MuBit__SWITCH(i)
+        for i in range(nmax-2, nmin-1, -1):
+            q._MuBit__SWITCH(i)
 
 def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     if type(q) is not MuBit:
-        TypeError(f"a MuBit was expected, but a {type(q)} was given")
+        raise TypeError(f"a MuBit was expected, but a {type(q)} was given")
     if type(n1) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n1)}")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n1)}")
     if type(n2) is not int:
-        TypeError(f"MuBit indices must be intergers, not {type(n2)}")
+        raise TypeError(f"MuBit indices must be intergers, not {type(n2)}")
     if n1 > q._MuBit__n or n2 > q._MuBit__n:
-        ValueError("Mubit index out of range")
+        raise ValueError("Mubit index out of range")
     n1 = n1%q._MuBit__n
     n2 = n2%q._MuBit__n
     if n1==n2:
-        ValueError("the Cu gate must be applied on two differents QuBits")
+        raise ValueError("the Cu gate must be applied on two differents QuBits")
     if type(u) is not list:
         raise ValueError(f"u was expected to be list[list[complex]], not {type(u)}")
     for u_ in u:
@@ -491,8 +490,8 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
                 raise ValueError(f"u was expected to be list[list[complex]]. A {type(x)} has been found")
     if len(u) != 2 or len(u[0]) != 2:
         if len(u) == 0:
-            ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size (0, .) has been given")
-        ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size ({len(u)}, {u[0]}) has been given")
+            raise ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size (0, .) has been given")
+        raise ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size ({len(u)}, {u[0]}) has been given")
 
     n = q._MuBit__n
     SWAP(q, n-2, n1)

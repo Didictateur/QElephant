@@ -35,7 +35,7 @@ class Matrix:
             if type(y) not in {int, float, complex}:
                 TypeError(f"can apply a Matrix to a ")
         if not self.__size[1] == len(x):
-            ValueError(f"the vector was expectedd to be of size {self.__size[1]}, but is of size {len(x)}")
+            raise ValueError(f"the vector was expectedd to be of size {self.__size[1]}, but is of size {len(x)}")
 
         y: list[complex] = np.dot(self.__m, x).tolist()
         return y
@@ -199,8 +199,8 @@ class Matrix:
                     raise ValueError(f"u was expected to be list[list[complex]]. A {type(x)} has been found")
         if len(u) != 2 or len(u[0]) != 2:
             if len(u) == 0:
-                ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size (0, .) has been given")
-            ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size ({len(u)}, {u[0]}) has been given")
+                raise ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size (0, .) has been given")
+            raise ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size ({len(u)}, {u[0]}) has been given")
 
         l = [
             [1, 0, 0, 0],
