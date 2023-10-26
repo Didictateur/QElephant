@@ -100,6 +100,7 @@ class MuBit:
             self.__SWITCH(k)
     
     def __mapply(self, matrix: Matrix, i: int) -> None:
+        """Can only apply controlled gates"""
         if type(i) is not int:
             raise TypeError(f"MuBit indices must be integers, not {type(i)}")
         if i >= self.__n:
@@ -175,8 +176,8 @@ class MuBit:
         return l
     
     def reset(self) -> None:
-        self.state = [0]*self.__n
-        self.state[0] = 1
+        self.__state = [0]*2**self.__n
+        self.__state[0] = 1
     
     @staticmethod
     def intricateThem(*args: "QuBit") -> "MuBit":
