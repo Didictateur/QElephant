@@ -1,5 +1,6 @@
 import math
 import random as rd
+import matplotlib.pyplot as plt
 
 from QElephant.Matrix import *
 
@@ -153,6 +154,27 @@ class MuBit:
             C = K+c
             self.__state[A:B], self.__state[B:C] = self.__state[B:C], self.__state[A:B]
             K += lng
+    
+    def draw(self) -> None:
+        def next(N: str) -> str:
+            if N == "":
+                return ""
+            if N[-1] == "0":
+                return N[:-1]+"1"
+            else:
+                return (next(N[:-1]))+"0"
+        
+        xlabels = []
+        lab = "0"*self.__n
+        for i in range(2**self.__n):
+            xlabels.append(lab)
+            lab = next(lab)
+
+        X = [n for n in range(2**self.__n)]
+        Y = [abs(self.__state[int(k)])**2 for k in X]
+        plt.hist(X, weights=Y, bins=2**self.__n-1)
+        plt.xticks([x+0.5 for x in X], [f"|{xlab}>" for xlab in xlabels])
+        plt.show()
 
     def observe(self) -> list[int]:
         r = rd.random()
@@ -499,10 +521,3 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.Cu(u), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
-
-if __name__=="__main__":
-    q = MuBit(2)
-    H(q[0])
-    Cu(q, [[0, 1], [1, 0]], 0, 1)
-
-    print(q)
