@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="QElephant",
-    version="1.0.7",
+    version="1.0.8",
     description="A small python module simulating a quantum computer",
     author="Didictateur",
     author_email="decosse.adrien@gmail.com",
