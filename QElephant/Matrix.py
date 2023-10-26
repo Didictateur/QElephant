@@ -43,12 +43,8 @@ class Matrix:
     def __str__(self) -> str:
         return str(self.__m)
     
-    @staticmethod
-    def to_list(matrix: "Matrix") -> list[list[complex]]:
-        if type(matrix) is not Matrix:
-            raise ValueError(f"cannot multiply Matrix with {type(matrix)}")
-        
-        return matrix._Matrix__m.copy()
+    def to_list(self) -> list[list[complex]]:        
+        return self._Matrix__m.copy()
 
     @staticmethod
     def I() -> "Matrix":
