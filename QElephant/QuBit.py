@@ -18,6 +18,11 @@ class MuBit:
         self.__n = n
         self.__state: list[complex] = [0]*(2**self.__n)
         self.__state[0] = 1
+        self.__callBack = None
+    
+    def __emit(self, gate: str, target: int, neighbor: list[int]=[]) -> None:
+        if self.__callBack is not None:
+            self.__callBack(gate, target, neighbor)
     
     def get_size(self) -> int:
         return self.__n
@@ -308,6 +313,7 @@ class IQuBit(QuBit):
 def H(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.H())
+        q._IQuBit__muBit._MuBit__emit("H", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.H())
     else:
@@ -316,6 +322,7 @@ def H(q: QuBit) -> None:
 def X(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.X())
+        q._IQuBit__muBit._MuBit__emit("X", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.X())
     else:
@@ -324,6 +331,7 @@ def X(q: QuBit) -> None:
 def SQRTX(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.SQRTX())
+        q._IQuBit__muBit._MuBit__emit("SQRTX", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.SQRTX())
     else:
@@ -332,6 +340,7 @@ def SQRTX(q: QuBit) -> None:
 def Y(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Y())
+        q._IQuBit__muBit._MuBit__emit("Y", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.Y())
     else:
@@ -340,6 +349,7 @@ def Y(q: QuBit) -> None:
 def Z(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Z())
+        q._IQuBit__muBit._MuBit__emit("Z", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.Z())
     else:
@@ -348,6 +358,7 @@ def Z(q: QuBit) -> None:
 def S(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.S())
+        q._IQuBit__muBit._MuBit__emit("S", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.S())
     else:
@@ -356,6 +367,7 @@ def S(q: QuBit) -> None:
 def T(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.T())
+        q._IQuBit__muBit._MuBit__emit("T", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.T())
     else:
@@ -365,10 +377,11 @@ def Rx(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
         raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
-    if type(q) == QuBit:
-        q._QuBit__apply(Matrix.Rx(phi))
-    elif type(q) == IQuBit:
+    if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Rx(phi))
+        q._IQuBit__muBit._MuBit__emit("Rx", q._IQuBit__n, [])
+    elif type(q) == QuBit:
+        q._QuBit__apply(Matrix.Rx(phi))
     else:
         raise TypeError(f"a QuBit was expected, but a {type(q)} was given")
 
@@ -376,10 +389,11 @@ def Ry(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
         raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
-    if type(q) == QuBit:
-        q._QuBit__apply(Matrix.Ry(phi))
-    elif type(q) == IQuBit:
+    if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Ry(phi))
+        q._IQuBit__muBit._MuBit__emit("Ry", q._IQuBit__n, [])
+    elif type(q) == QuBit:
+        q._QuBit__apply(Matrix.Ry(phi))
     else:
         raise TypeError(f"a QuBit was expected, but a {type(q)} was given")
 
@@ -387,10 +401,11 @@ def Rz(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
         raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
-    if type(q) == QuBit:
-        q._QuBit__apply(Matrix.Rz(phi))
-    elif type(q) == IQuBit:
+    if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.Rz(phi))
+        q._IQuBit__muBit._MuBit__emit("H", q._IQuBit__n, [])
+    elif type(q) == QuBit:
+        q._QuBit__apply(Matrix.Rz(phi))
     else:
         raise TypeError(f"a QuBit was expected, but a {type(q)} was given")
 
@@ -398,10 +413,11 @@ def R1(q: QuBit, phi: float) -> None:
     if type(phi) not in {int, float}:
         raise TypeError(f"an angle must be integer or float, not {type(phi)}")
 
-    if type(q) == QuBit:
-        q._QuBit__apply(Matrix.R1(phi))
-    elif type(q) == IQuBit:
+    if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.R1(phi))
+        q._IQuBit__muBit._MuBit__emit("R1", q._IQuBit__n, [])
+    elif type(q) == QuBit:
+        q._QuBit__apply(Matrix.R1(phi))
     else:
         raise TypeError(f"a QuBit was expected, but a {type(q)} was given")
 
@@ -425,6 +441,7 @@ def CX(q: MuBit, n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.CX(), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
+    q._MuBit__emit("CX", n1, [n2])
 
 def CY(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -446,6 +463,7 @@ def CY(q: MuBit, n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.CY(), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
+    q._MuBit__emit("CY", n1, [n2])
 
 def CZ(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -467,6 +485,7 @@ def CZ(q: MuBit, n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.CZ(), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
+    q._MuBit__emit("CZ", n1, [n2])
 
 def SWAP(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -487,6 +506,8 @@ def SWAP(q: MuBit, n1: int, n2: int) -> None:
             q._MuBit__SWITCH(i)
         for i in range(nmax-2, nmin-1, -1):
             q._MuBit__SWITCH(i)
+    
+    q._MuBit__emit("SWAP", n1, [n2])
 
 def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -521,3 +542,4 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.Cu(u), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
+    q._MuBit__emit("Cu", n1, [n2])
