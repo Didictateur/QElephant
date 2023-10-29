@@ -331,7 +331,7 @@ def X(q: QuBit) -> None:
 def SQRTX(q: QuBit) -> None:
     if type(q) == IQuBit:
         q._IQuBit__apply(Matrix.SQRTX())
-        q._IQuBit__muBit._MuBit__emit("SQRTX", q._IQuBit__n, [])
+        q._IQuBit__muBit._MuBit__emit("√¬", q._IQuBit__n, [])
     elif type(q) == QuBit:
         q._QuBit__apply(Matrix.SQRTX())
     else:
