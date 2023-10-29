@@ -295,6 +295,7 @@ class IQuBit(QuBit):
     
     def observe(self) -> int:
         r = rd.random()
+        self.__muBit._MuBit__emit("obs", self.__n, [])
         if r < self.__muBit._MuBit__getProb(self.__n):
             self.__muBit._MuBit__set(self.__n, 0)
             return 0

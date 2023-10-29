@@ -59,6 +59,9 @@ class Circuit:
                         self.__line((i+1, q_i-0.25), (i+1, q_i+0.25))
                         self.__circle(i+1, neigbhor[0], 0.05)
                         self.__line((i+1, q_i), (i+1, neigbhor[0]))
+                    elif txt == "obs":
+                        self.__circle(i+1, q_i, 0.25, False)
+                        self.__circle(i+1, q_i, 0.05)
                     else:
                         self.__rect(i+1, q_i, txt, n)
                         for neig in neigbhor:
