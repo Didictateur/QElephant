@@ -23,8 +23,8 @@ class Circuit:
     def __line(self, A, B) -> None:
         plt.plot([A[0], B[0]], [A[1], B[1]], color='Black')
     
-    def __circle(self, x: float, y: float, radius: float) -> None:
-        circ = Circle((x, y), radius, fill=True, color='Black')
+    def __circle(self, x: float, y: float, radius: float, fill=True) -> None:
+        circ = Circle((x, y), radius, fill=fill, color='Black')
         plt.gca().add_patch(circ)
     
     def draw(self) -> None:
@@ -40,15 +40,20 @@ class Circuit:
                 self.__line((i+1.25, q_i), (i+1.5, q_i))
 
                 if q_i == index:
-                    self.__rect(i+1, q_i, txt, n)
-                    for neig in neigbhor:
-                        self.__circle(i+1, neig, 0.05)
-                        if neig > q_i:
-                            self.__line((i+1, q_i+0.25), (i+1, neig))
-                        elif neig < q_i:
-                            self.__line((i+1, q_i-0.25), (i+1, neig))
-                        else:
-                            raise ValueError("Cannot apply gate twice on the same QuBit")
+                    if txt == "X":
+                        self.__circle(i+1, q_i, 0.25, False)
+                        self.__line((i+0.75, q_i), (i+1.25, q_i))
+                        self.__line((i+1, q_i-0.25), (i+1, q_i+0.25))
+                    else:
+                        self.__rect(i+1, q_i, txt, n)
+                        for neig in neigbhor:
+                            self.__circle(i+1, neig, 0.05)
+                            if neig > q_i:
+                                self.__line((i+1, q_i+0.25), (i+1, neig))
+                            elif neig < q_i:
+                                self.__line((i+1, q_i-0.25), (i+1, neig))
+                            else:
+                                raise ValueError("Cannot apply gate twice on the same QuBit")
                 else:
                     self.__line((i+0.75, q_i), (i+1.25, q_i))
             i += 1

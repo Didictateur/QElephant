@@ -441,7 +441,7 @@ def CX(q: MuBit, n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.CX(), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
-    q._MuBit__emit("CX", n1, [n2])
+    q._MuBit__emit("X", n1, [n2])
 
 def CY(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -463,7 +463,7 @@ def CY(q: MuBit, n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.CY(), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
-    q._MuBit__emit("CY", n1, [n2])
+    q._MuBit__emit("Y", n1, [n2])
 
 def CZ(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -485,7 +485,7 @@ def CZ(q: MuBit, n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.CZ(), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
-    q._MuBit__emit("CZ", n1, [n2])
+    q._MuBit__emit("Z", n1, [n2])
 
 def SWAP(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -542,4 +542,4 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     q._MuBit__mapply(Matrix.Cu(u), n-2)
     SWAP(q, n-2, n1)
     SWAP(q, n-1, n2)
-    q._MuBit__emit("Cu", n1, [n2])
+    q._MuBit__emit("U", n1, [n2])
