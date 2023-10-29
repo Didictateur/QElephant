@@ -303,6 +303,7 @@ class IQuBit(QuBit):
     
     def reset(self) -> None:
         self.__muBit._MuBit__set(self.__n, 0)
+        self.__muBit._MuBit__emit("|0>", self.__n, [])
 
 
 
@@ -436,12 +437,12 @@ def CX(q: MuBit, n1: int, n2: int) -> None:
         raise ValueError("the CNOT gate must be applied on two differents QuBits")
 
     n = q._MuBit__n
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2, False)
     q._MuBit__mapply(Matrix.CX(), n-2)
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
-    q._MuBit__emit("X", n1, [n2])
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2, False)
+    q._MuBit__emit("CX", n1, [n2])
 
 def CY(q: MuBit, n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -458,11 +459,11 @@ def CY(q: MuBit, n1: int, n2: int) -> None:
         raise ValueError("the CNOT gate must be applied on two differents QuBits")
 
     n = q._MuBit__n
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2, False)
     q._MuBit__mapply(Matrix.CY(), n-2)
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2, False)
     q._MuBit__emit("Y", n1, [n2])
 
 def CZ(q: MuBit, n1: int, n2: int) -> None:
@@ -480,14 +481,14 @@ def CZ(q: MuBit, n1: int, n2: int) -> None:
         raise ValueError("the CNOT gate must be applied on two differents QuBits")
 
     n = q._MuBit__n
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2, False)
     q._MuBit__mapply(Matrix.CZ(), n-2)
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2, False)
     q._MuBit__emit("Z", n1, [n2])
 
-def SWAP(q: MuBit, n1: int, n2: int) -> None:
+def SWAP(q: MuBit, n1: int, n2: int, emit: bool=True) -> None:
     if type(q) is not MuBit:
         TypeError(f"a MuBit was expected, but a {type(q)} was given")
     if type(n1) is not int:
@@ -507,7 +508,8 @@ def SWAP(q: MuBit, n1: int, n2: int) -> None:
         for i in range(nmax-2, nmin-1, -1):
             q._MuBit__SWITCH(i)
     
-    q._MuBit__emit("SWAP", n1, [n2])
+    if emit:
+        q._MuBit__emit("SWAP", n1, [n2])
 
 def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
     if type(q) is not MuBit:
@@ -537,9 +539,9 @@ def Cu(q: MuBit, u: list[list[complex]], n1: int, n2: int) -> None:
         raise ValueError(f"the size of the matrix was expected to be (2, 2). A matrix of size ({len(u)}, {u[0]}) has been given")
 
     n = q._MuBit__n
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2,False)
     q._MuBit__mapply(Matrix.Cu(u), n-2)
-    SWAP(q, n-2, n1)
-    SWAP(q, n-1, n2)
+    SWAP(q, n-2, n1, False)
+    SWAP(q, n-1, n2, False)
     q._MuBit__emit("U", n1, [n2])
