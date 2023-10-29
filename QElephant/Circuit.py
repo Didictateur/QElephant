@@ -27,6 +27,10 @@ class Circuit:
         circ = Circle((x, y), radius, fill=fill, color='Black')
         plt.gca().add_patch(circ)
     
+    def __cross(self, x: float, y: float):
+        self.__line((x-0.25, y-0.25), (x+0.25, y+0.25))
+        self.__line((x-0.25, y+0.25), (x+0.25, y-0.25))
+    
     def draw(self) -> None:
         n = len(self.__instr)
         plt.yticks(range(self.__n), [f"QuBit {i}" for i in range(self.__n)])
@@ -44,6 +48,11 @@ class Circuit:
                         self.__circle(i+1, q_i, 0.25, False)
                         self.__line((i+0.75, q_i), (i+1.25, q_i))
                         self.__line((i+1, q_i-0.25), (i+1, q_i+0.25))
+                    elif txt == "SWAP":
+                        self.__line((i+0.75, q_i), (i+1.25, q_i))
+                        self.__cross(i+1, q_i)
+                        self.__cross(i+1, neigbhor[0])
+                        self.__line((i+1, q_i), (i+1, neigbhor[0]))
                     else:
                         self.__rect(i+1, q_i, txt, n)
                         for neig in neigbhor:
