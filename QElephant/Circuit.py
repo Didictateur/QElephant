@@ -76,7 +76,7 @@ class Circuit:
                     self.__line((i+0.75, q_i), (i+1.25, q_i))
             i += 1
         plt.show()
-
+    
 if __name__=="__main__":
     c = Circuit(3, [("CS", 0, [1]), ("CX", 2, [0]), ("TX", 1, [0, 2])])
     c.draw()
