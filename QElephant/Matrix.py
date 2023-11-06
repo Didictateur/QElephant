@@ -43,7 +43,8 @@ class Matrix:
     def __str__(self) -> str:
         return str(self.__m)
     
-    def to_list(self) -> list[list[complex]]:        
+    def to_list(self) -> list[list[complex]]:
+        """convert the Matrix into a list representation"""  
         return self._Matrix__m.copy()
 
     @staticmethod

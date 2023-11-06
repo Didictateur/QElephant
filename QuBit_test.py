@@ -1,11 +1,11 @@
 from QElephant.QuBit import *
+import pytest
 
 q = QuBit(0, 1)
 
 assert q._QuBit__state == [0, 1]
-assert q._QuBit__intricated == False
-assert q.is_intricated() == False
-assert q.get_Mubit() == None
+assert q._QuBit__entangled == False
+assert q.is_entangled() == False
 assert str(q) == "0 |0> + 1 |1>"
 q._QuBit__apply(Matrix([[1, 2], [3, 4]]))
 assert q._QuBit__state == [2, 4]
@@ -25,8 +25,8 @@ assert mq._MuBit__state == [0, 1/math.sqrt(2), 0, 1/math.sqrt(2)]
 q = mq[0]
 assert q._IQuBit__n == 0
 assert q._IQuBit__muBit == mq
-assert q._IQuBit__intricated == True
-assert q.is_intricated() == True
+assert q._IQuBit__entangled == True
+assert q.is_entangled() == True
 assert q.get_Mubit() == (mq, 0)
 assert str(q) == "0.707 |0> + 0.707 |1>"
 q._IQuBit__apply(Matrix([[1, 1], [1, -1]]))
