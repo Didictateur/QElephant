@@ -8,6 +8,11 @@ from QElephant.Matrix import *
 
 class MuBit:
     def __init__(self, n: int=2) -> None:
+        """a set of entangled QuBits
+
+        Args:
+            n (int, optional): number of entangled QuBits. Must be at least 2. Defaults to 2.
+        """
         if type(n) is not int:
             raise TypeError(f"number of state must be an intergers, not {type(n)}")
         if not n >= 2:
@@ -277,6 +282,12 @@ class MuBit:
     
 class QuBit:
     def __init__(self, alpha: complex=1, beta: complex=0):
+        """a single QuBit
+
+        Args:
+            alpha (complex, optional): complex coefficient for the state |0>. Defaults to 1.
+            beta (complex, optional): complex coefficient for the state |1>. Defaults to 0.
+        """
         if type(alpha) not in {int, float, complex}:
             raise TypeError(f"QuBit state must be int, float or complex, not {type(alpha)}")
         if type(beta) not in {int, float, complex}:
