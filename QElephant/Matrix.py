@@ -1,8 +1,6 @@
 import math
 import numpy as np
 
-I = complex(0, 1)
-
 class Matrix:
     def __init__(self, l: list[list[complex]]=[]) -> None:
             if type(l) is not list:
@@ -72,15 +70,15 @@ class Matrix:
     @staticmethod
     def SQRTX() -> "Matrix":
         return Matrix([
-            [(1+I)/2, (1-I)/2],
-            [(1-I)/2, (1+I)/2]
+            [(1+complex(0, 1))/2, (1-complex(0, 1))/2],
+            [(1-complex(0, 1))/2, (1+complex(0, 1))/2]
         ])
 
     @staticmethod
     def Y() -> "Matrix":
         return Matrix([
-            [0, -I],
-            [I, 0]
+            [0, -complex(0, 1)],
+            [complex(0, 1), 0]
         ])
 
     @staticmethod
@@ -94,12 +92,12 @@ class Matrix:
     def S() -> "Matrix":
         return Matrix([
             [1, 0],
-            [0, I]
+            [0, complex(0, 1)]
         ])
 
     @staticmethod
     def T() -> "Matrix":
-        s = math.e**(I*math.pi/4)
+        s = math.e**(complex(0, 1)*math.pi/4)
         return Matrix([
             [1, 0],
             [0, s]
@@ -113,8 +111,8 @@ class Matrix:
         c = math.cos(phi/2)
         s = math.sin(phi/2)
         return Matrix([
-            [c, -I*s],
-            [-I*s, c]
+            [c, -complex(0, 1)*s],
+            [-complex(0, 1)*s, c]
         ])
     
     @staticmethod
@@ -134,7 +132,7 @@ class Matrix:
         if type(phi) not in {int, float}:
             TypeError(f"an angle must be integer or float, not {type(phi)}")
 
-        s = math.e**(I*phi/2)
+        s = math.e**(complex(0, 1)*phi/2)
         return Matrix([
             [1/s, 0],
             [0, s]
@@ -145,7 +143,7 @@ class Matrix:
         if type(phi) not in {int, float}:
             TypeError(f"an angle must be integer or float, not {type(phi)}")
             
-        s = math.e**(I*phi)
+        s = math.e**(complex(0, 1)*phi)
         return Matrix([
             [1, 0],
             [0, s]
@@ -165,8 +163,8 @@ class Matrix:
         return Matrix([
             [1, 0, 0, 0],
             [0, 1, 0, 0],
-            [0, 0, 0, -I],
-            [0, 0, I, 0]
+            [0, 0, 0, -complex(0, 1)],
+            [0, 0, complex(0, 1), 0]
         ])
     
     @staticmethod
