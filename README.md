@@ -19,7 +19,7 @@ In order to work, QElephant is using the following libraries:
 They are automatically managed when installing QElephant.
 
 ## Contains
-This library contains two main object : `QuBit` and `Matrix`.
+This library contains three main object : `QuBit`, `Matrix` and `Circuit`.
 
 ### QuBit
 This is the specificity of a quantum algorithm: using QuBit which can have two states: `|0>` and `|1>`. To create one, simply use:
@@ -32,16 +32,16 @@ $\alpha$ and $\beta$ are optional complex arguments. When specified, initiate th
 > [!IMPORTANT]
 > Because the value of $\alpha$ and $\beta$ gives the probability of each states, it is essential that $|\alpha|²+|\beta|²=1$. On the other case, the QuBit cannot be created.
 
-To simulate intricated QuBit, `MuBit` are used. As for `QuBit`, they are initalized like this:
+To simulate entangled QuBit, `MuBit` are used. As for `QuBit`, they are initalized like this:
 
 ```
 mq = MuBit(n)
 q = mq[0]
 ```
 
-`n` gives the number of intricated QuBit. When created, a MuBit is in the state with only zeros.
+`n` gives the number of entangled QuBit. When created, a MuBit is in the state with only zeros.
 
-`mq[0]` returns a QuBit, here the first one, wich can be manipulated. Because of the intrication, manipulating a intricated QuBit implies that other QuBits are manipulated too.
+`mq[0]` returns a QuBit, here the first one, wich can be manipulated. Because of the intrication, manipulating a entangled QuBit implies that other QuBits are manipulated too.
 
 ### Matrix
 `Matrix` are used to manipulate the state of the QuBit. For example, the QuBit 
@@ -77,6 +77,22 @@ So, the operation corresponding of the inversion of the value of $\alpha$ and $\
 
 In theory, the users don't need to use them, the main quantum gates are already implemented.
 
+### Circuit
+
+A `Circuit` is an object contaning a MuBit. When manipulating it, it send to the `Circuit` a signal in order to keep in memory when a gate is used, and on which QuBit.
+
+So, it is simply used like a `MuBit` :
+```
+# a Circuit with 3  entangled SuBit is created
+c = Circuit(3)
+
+# get the MuBit in this circuit
+mb = c.get_MuBit()
+
+# manipulate le MuBit
+List_of_QuBit = [mb[i] for i in range(3)]
+```
+
 ### Quantum Gate
 
 The quantum gates are the different operations applying to the QuBits. The one behind is the gate `X`. It is simply used like any function:
@@ -106,6 +122,23 @@ SWAP(mq, 0, 1)
 # the two first quibit are inverted, mq is finally in the state |01>
 ```
 
+Finally, a gate can be simply apply on all the `QuBit` of a `MuBit`:
+```
+mb1 = MuBit(7)
+mb2 = MuBit(7)
+
+H(mb2)
+
+for i in range(7):
+    H(mb2[i])
+
+# at the end, the two MuBit are in the exact same state
+```
+
+> [!NOTE]
+> Only a single qubit gate can be apply to all the `QuBit` at the same time.
+> For a `Circuit`, maust be apply to the `QuBit`, and not to the circuit
+
 ## Docs
 
 A doc is availaibale [here](docs) where all objects and gates are displayed.
@@ -114,4 +147,4 @@ A doc is availaibale [here](docs) where all objects and gates are displayed.
 ## Others
 
 > [!WARNING]
-> Because this library is only a simulation of a qantum computer, lot of calculus are made. Manipulating n intricated qubits means manipulating matrices of size 2^n. So, it demandes much more time to calvulate than a real qantum computer.
+> Because this library is only a simulation of a qantum computer, lot of calculation are made. Manipulating n entangled qubits means manipulating matrices of size 2^n. So, it demandes much more time to calculate than a real qantum computer.
