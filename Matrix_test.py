@@ -1,4 +1,4 @@
-from QElephant.Matrix import *
+from QElephant import *
 import pytest
 
 m = Matrix([[1, 2, 3], [4, 5, 6]])

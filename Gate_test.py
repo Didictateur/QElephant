@@ -1,4 +1,4 @@
-from QElephant.QuBit import *
+from QElephant import *
 import pytest
 
 ## MuBit
